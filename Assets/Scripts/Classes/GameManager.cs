@@ -17,55 +17,56 @@ public class GameManager : MonoBehaviour
     public InputField username;
     public InputField password;
     private static User _user = new User();
-
-    private void Awake()
-    {
-        var prototypeFlowController =
-            GetComponentInParent<Canvas>().rootCanvas?.GetComponent<PrototypeFlowController>();
-        if (prototypeFlowController != null)
-        {
-            if (PlayerPrefs.GetString("lang") == "ru")
-            {
-                prototypeFlowController.TransitionToScreenById("1");
-            }
-            else
-            {
-                prototypeFlowController.TransitionToScreenById("5");
-            }
-        }
-    }
+    public static bool login;
 
     public void Start()
     {
-        print("hi");
+        print(login);
         var prototypeFlowController =
             GetComponentInParent<Canvas>().rootCanvas?.GetComponent<PrototypeFlowController>();
-        if (prototypeFlowController != null &&
-            prototypeFlowController.CurrentScreenInstance.name != "iPhone 13 & 14 - 13" &&
-            prototypeFlowController.CurrentScreenInstance.name != "iPhone 13 & 14 - 14")
+        if (prototypeFlowController != null && login == false)
         {
             try
-            {   
+            {
                 String message = PlayerPrefs.GetString("username");
                 DataBaseHandler db = gameObject.GetComponent<DataBaseHandler>() == null
                     ? gameObject.AddComponent<DataBaseHandler>()
                     : gameObject.GetComponent<DataBaseHandler>();
-                if (prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 1" || prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 5")
+                if (prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 1" ||
+                    prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 5")
                 {
-                    Data[] res = db.Select($"SELECT * FROM users WHERE username = '{message}'");
-                    _user = new User(res[0].Username, res[0].Balance, res[0].Lives, res[0].UID);
+                    Data[] res = db.Select($"SELECT * FROM users WHERE name = '{message}'");
+                    _user = new User(res[0].Username, res[0].Balance, res[0].Lives, res[0].UID, res[0].Avatar);
                 }
                 balance.text = _user.Balance.ToString();
                 lives.text = _user.Lives.ToString();
                 if (uid != null) uid.text = _user.ID.ToUpper();
                 if (usernameText != null) usernameText.text = _user.Username;
-                if (avatar != null) avatar.sprite = LoadSpriteFromFile(_user.Username);
+                if (avatar != null) avatar.sprite = _user.Avatar;
             }
             catch (Exception e)
             {
+                login = true;
                 print(e);
                 if (prototypeFlowController != null) prototypeFlowController.TransitionToScreenById("13");
             }
+        }
+        else
+        {
+            string lang;
+            try
+            {
+                lang = PlayerPrefs.GetString("lang");
+            }
+            catch
+            {
+                lang = "ru";
+            }
+
+            // if (lang != "ru" && prototypeFlowController.CurrentScreenInstance.name != "iPhone 13 & 14 - 14")
+            // {
+            //     if (prototypeFlowController != null) prototypeFlowController.TransitionToScreenById("14");
+            // }
         }
     }
 
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     public void HandleDropdownChangeKz(int value)
     {
         var prototypeFlowController =
@@ -101,15 +103,15 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
     public void StartStory()
-    {   
+    {
         currentStory = testStory;
         SceneManager.LoadScene("Story");
     }
-    
+
     public void ExitApp()
     {
-        PlayerPrefs.DeleteKey("username");
         Application.Quit();
     }
 
@@ -125,12 +127,14 @@ public class GameManager : MonoBehaviour
         var db = gameObject.GetComponent<DataBaseHandler>() == null
             ? gameObject.AddComponent<DataBaseHandler>()
             : gameObject.GetComponent<DataBaseHandler>();
-        Data[] data = db.Select($"SELECT * FROM users WHERE username = '{username.text}'");
+        Data[] data = db.Select($"SELECT * FROM users WHERE name = '{username.text}'");
         try
         {
             if (data[0].Password == password.text)
             {
                 PlayerPrefs.SetString("username", username.text);
+                Data[] res = db.Select($"SELECT * FROM users WHERE name = '{username.text}'");
+                _user = new User(res[0].Username, res[0].Balance, res[0].Lives, res[0].UID, res[0].Avatar);
                 if (prototypeFlowController != null) prototypeFlowController.TransitionToScreenById("1");
             }
             else
@@ -143,32 +147,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Invalid username");
         }
     }
-    private string GetPathToAvatar(string username)
-    {
-        return $"Assets/Avatars/{username}.png";
-    }
-    private Sprite LoadSpriteFromFile(string username)
-    {
-        try
-        {
-            byte[] bytes = System.IO.File.ReadAllBytes(GetPathToAvatar(username));
-            Texture2D texture = new Texture2D(2, 2);
-            if (texture.LoadImage(bytes))
-            {
-                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            }
-        }
-        catch (Exception)
-        {
-            byte[] bytes = System.IO.File.ReadAllBytes(GetPathToAvatar("default"));
-            Texture2D texture = new Texture2D(2, 2);
-            if (texture.LoadImage(bytes))
-            {
-                return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-            }
-        }
-        return null;
-    }
 }
 
 public class User
@@ -177,12 +155,14 @@ public class User
     public readonly int Balance;
     public readonly int Lives;
     public readonly string ID;
-    public User(string username, int balance, int lives, string id)
+    public readonly Sprite Avatar;
+    public User(string username, int balance, int lives, string id, Sprite avatar = null)
     {
         this.Username = username;
         this.Balance = balance;
         this.Lives = lives;
         this.ID = id;
+        this.Avatar = avatar;
     }
 
     public User()

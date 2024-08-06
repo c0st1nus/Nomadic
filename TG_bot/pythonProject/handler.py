@@ -2,7 +2,8 @@ import mysql.connector
 import datetime
 
 def_string = ("CREATE TABLE IF NOT EXISTS users (UID VARCHAR(12) NOT NULL PRIMARY KEY, name VARCHAR(25) NOT NULL "
-              "UNIQUE, pass VARCHAR(25) NOT NULL, t_id VARCHAR(255), bal INT DEFAULT(0), liv INT DEFAULT(0));")
+              "UNIQUE, pass VARCHAR(25) NOT NULL, t_id VARCHAR(255), bal INT DEFAULT(0), liv INT DEFAULT(0), "
+              "av LONGBLOB DEFAULT(null));")
 
 
 class DataBase:
@@ -48,7 +49,8 @@ class DataBase:
             self.open()
             cursor = self.connection.cursor()
             if where is not None:
-                cursor.execute(f"SELECT {columns if columns is not None else '*'} FROM " + table + " WHERE " + where + ";")
+                cursor.execute(
+                    f"SELECT {columns if columns is not None else '*'} FROM " + table + " WHERE " + where + ";")
             else:
                 cursor.execute(f"SELECT {columns if columns is not None else '*'} FROM " + table + ";")
             result = cursor.fetchall()
@@ -69,7 +71,6 @@ class DataBase:
         except Exception as err:
             self.err.write(err)
 
-
     def update(self, table, columns, values, where):
         try:
             self.open()
@@ -86,6 +87,17 @@ class DataBase:
         except Exception as err:
             print(err)
 
+    def update_blob(self, table, column, blob_value, where):
+        try:
+            self.open()
+            cursor = self.connection.cursor()
+            query = f"UPDATE `{table}` SET `{column}` = %s WHERE {where}"
+            cursor.execute(query, (blob_value,))
+            self.connection.commit()
+            cursor.close()
+            self.close()
+        except Exception as err:
+            print(err)
 
     def delete(self, table, where):
         self.open()

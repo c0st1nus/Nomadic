@@ -307,9 +307,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 79.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -76
+      objectReference: {fileID: 0}
     - target: {fileID: 6175713705293221974, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_MinWidth
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_MinHeight
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_PreferredWidth
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
+      propertyPath: m_PreferredHeight
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 8447354708105712922, guid: 197dca019fec2d149a56fff1e11a452d, type: 3}
       propertyPath: m_TextStyleHashCode
@@ -703,6 +735,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: iPhone 13 & 14 - 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4496614087504539883, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4496614087504539883, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1e01fb6a18c5a5844b2c39b20047fa67, type: 3}
     - target: {fileID: 4788260873306762924, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
       propertyPath: m_text
       value: "\u0422\u0456\u043B"
@@ -803,9 +843,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011069021772842854, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -62
+      objectReference: {fileID: 0}
     - target: {fileID: 7739242457738014626, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
       propertyPath: m_SizeDelta.x
       value: 105.9404
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_MinWidth
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_MinHeight
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_PreferredWidth
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150642168107839127, guid: 59efc2301f1467a0683503268465d8bf, type: 3}
+      propertyPath: m_PreferredHeight
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

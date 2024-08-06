@@ -5,7 +5,14 @@ using MySql.Data.MySqlClient;
 
 public class DataBaseHandler : MonoBehaviour
 {
-     string connStr = "server=20.52.101.204; uid=c0nstanta; database=Nomadic; pwd=03062008@rjitdjqK";
+     private readonly string connStr = "server=145.249.249.29; uid=remoteuser; database=mydb; pwd=userpassword";
+     private Sprite ConvertLongBlobToSprite(byte[] imageBytes)
+     {
+         if (imageBytes == null) return null;
+         Texture2D texture = new Texture2D(2, 2);
+         texture.LoadImage(imageBytes);
+         return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+     }
      public Data[] Select(string query = "SELECT * FROM users")
      {
          List<Data> dataList = new List<Data>();
@@ -20,21 +27,16 @@ public class DataBaseHandler : MonoBehaviour
  
                  while (reader.Read())
                  {
-                     string username = reader.GetString("username");
-                     string password = reader.GetString("password");
-                     int balance = reader.GetInt32("balance");
-                     int lives = reader.GetInt32("lives");
                      string UID = reader.GetString("UID");
-                     string tgId = "";
-                     try
-                     {
-                        tgId = reader.GetString("telegramID");
-                     }
-                     catch (Exception)
-                     {
-                         print("Telegram ID not found");
-                     }
-                     Data data = new Data(username, password, tgId, balance, lives, UID);
+                     string username = reader.GetString("name");
+                     string password = reader.GetString("pass");
+                     string tgId = reader.GetString("t_id");
+                     int balance = reader.GetInt32("bal");
+                     int lives = reader.GetInt32("liv");
+                     byte[] avatarBytes;
+                     avatarBytes = (byte[])reader["av"];
+                     Sprite avatar = ConvertLongBlobToSprite(avatarBytes);
+                     Data data = new Data(username, password, tgId, balance, lives, UID, avatar);
                      dataList.Add(data);
                  }
              
@@ -59,16 +61,17 @@ public class DataBaseHandler : MonoBehaviour
      public string TgId { get; set; }
      public int Balance { get; set; }
      public int Lives { get; set; }
-     
+     public Sprite Avatar { get; set; }
      public string UID { get; set; }
  
-     public Data(string username, string password, string tgId, int balance, int lives, string UID)
+     public Data(string username, string password, string tgId, int balance, int lives, string UID, Sprite avatar = null)
      {
          this.Username = username;
          this.Password = password;
          this.TgId = tgId;
          this.Balance = balance;
          this.Lives = lives;
+         this.Avatar = avatar;
          this.UID = UID;
      }
  }

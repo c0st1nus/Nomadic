@@ -1,14 +1,29 @@
-import telebot
-from handler import DataBase, def_string, ErrorLog
-from telebot import types
+import io
+import os
 import random
 import string
 
+import telebot
+from PIL import Image
+from telebot import types
+
+from handler import DataBase, def_string, ErrorLog
+
 bot = telebot.TeleBot('7146246279:AAF0pR-XCaLpYhtG3LKVs2CHjA_XQI7MG-4')
-db = DataBase("127.0.0.1", "root", "root", "nomadic")
+db = DataBase("127.0.0.1", "root", "root", "Nomadic")
+#db = DataBase("20.52.101.204", "c0nstanta", "03062008@rjitdjqK", "Nomadic")
 el = ErrorLog("error.txt")
 admin = "@C0nstatinus"
 
+
+def img_to_bytes(image):
+    img = Image.open(image)
+    byte_arr = io.BytesIO()
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+    img.save(byte_arr, format='JPEG')
+    blob = byte_arr.getvalue()
+    return blob
 
 def start_menu():
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -103,7 +118,10 @@ def change_avatar(message):
         file = bot.download_file(file_info.file_path)
         with open(f"avatars/{message.from_user.id}.jpg", "wb") as f:
             f.write(file)
+        binary_data = img_to_bytes(f"avatars/{message.from_user.id}.jpg")
+        db.update_blob('users', 'av', binary_data, f"t_id = {message.from_user.id}")
         bot.send_message(message.chat.id, "Аватар успешно изменен!", reply_markup=profile_markup())
+        os.remove(f"avatars/{message.from_user.id}.jpg")
         bot.register_next_step_handler(message, profile_menu)
 
 

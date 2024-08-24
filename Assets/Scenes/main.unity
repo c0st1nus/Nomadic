@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -308,6 +307,45 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6892956003890051086, guid: d7963c2a080cd9942831d2d3823dfb97, type: 3}
   m_PrefabInstance: {fileID: 1536949504}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1182028669
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI/RoundedCorners/RoundedCorners
+  m_Shader: {fileID: 4800000, guid: 0bd2ec5d73751e34a814274a454bec41, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _WidthHeightRadius: {r: 358, g: 69, b: 80, a: 0}
+  m_BuildTextureStacks: []
 --- !u!1 &1197742575
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +657,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1241376592}
     m_Modifications:
+    - target: {fileID: 1224558077896030266, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 1182028669}
     - target: {fileID: 2440075598883307758, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -634,6 +676,14 @@ PrefabInstance:
     - target: {fileID: 2440075598883307758, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070349928345779427, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: fc0e08bc7130787418bd46bd49520269, type: 3}
+    - target: {fileID: 3070349928345779427, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
+      propertyPath: m_ImageScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3288950047771625706, guid: 0fa292077ba6eef08b8997e90665a668, type: 3}
       propertyPath: m_Name

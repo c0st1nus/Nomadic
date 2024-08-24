@@ -90,7 +90,7 @@ public class Say : MonoBehaviour
                 }
                 case StoryEndNode:
                 {
-                    SceneManager.LoadScene(0);
+                    SceneManager.LoadScene("main");
                     break;
                 }
             }
@@ -175,6 +175,10 @@ public class Say : MonoBehaviour
         }
     }
     
+    public void StoryExit(){
+        SceneManager.LoadScene("Main");
+    }
+
     private void ChangeStat(Dict stats)
     {
         print("ChangeStat");
@@ -261,7 +265,11 @@ public class Say : MonoBehaviour
         playerImage.sprite = dialog.personage.image != null ? dialog.personage.image : null;
         RectTransform player = playerImage.GetComponent<RectTransform>();
         float par = dialog.personage.image.rect.width / dialog.personage.image.rect.height;
-        player.sizeDelta = new Vector2(Screen.height * 0.6f * par, Screen.height * 0.75f);
+        par /= dialog.personage.kid? 1.75f : 1.25f;  
+        float unit = Screen.height / 300;
+        float height = dialog.personage.height * unit;
+        float width = height * par;
+        player.sizeDelta = new Vector2(width, height);
         player.localPosition = dialog.leftPos? new Vector3(-143, player.localPosition.y) : new Vector3(125, player.localPosition.y);
         txRect.anchorMin = new Vector2(0.5f, 0);
         txRect.anchorMax = new Vector2(0.5f, 0);

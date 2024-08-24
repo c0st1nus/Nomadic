@@ -17,56 +17,39 @@ public class GameManager : MonoBehaviour
     public InputField username;
     public InputField password;
     private static User _user = new User();
-    public static bool login;
 
     public void Start()
     {
-        print(login);
         var prototypeFlowController =
-            GetComponentInParent<Canvas>().rootCanvas?.GetComponent<PrototypeFlowController>();
-        if (prototypeFlowController != null && login == false)
-        {
-            try
-            {
-                String message = PlayerPrefs.GetString("username");
-                DataBaseHandler db = gameObject.GetComponent<DataBaseHandler>() == null
-                    ? gameObject.AddComponent<DataBaseHandler>()
-                    : gameObject.GetComponent<DataBaseHandler>();
-                if (prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 1" ||
-                    prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 5")
-                {
-                    Data[] res = db.Select($"SELECT * FROM users WHERE name = '{message}'");
-                    _user = new User(res[0].Username, res[0].Balance, res[0].Lives, res[0].UID, res[0].Avatar);
-                }
-                balance.text = _user.Balance.ToString();
-                lives.text = _user.Lives.ToString();
-                if (uid != null) uid.text = _user.ID.ToUpper();
-                if (usernameText != null) usernameText.text = _user.Username;
-                if (avatar != null) avatar.sprite = _user.Avatar;
-            }
-            catch (Exception e)
-            {
-                login = true;
-                print(e);
-                if (prototypeFlowController != null) prototypeFlowController.TransitionToScreenById("13");
+        GetComponentInParent<Canvas>().rootCanvas?.GetComponent<PrototypeFlowController>();
+        string lang = PlayerPrefs.GetString("lang");
+        if (lang == "ru"){
+            if(prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 5"){
+                prototypeFlowController.TransitionToScreenById("1");
             }
         }
-        else
+        else if (lang == "kz"){
+            if(prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 1"){
+                prototypeFlowController.TransitionToScreenById("5");
+            }
+        }
+        if (prototypeFlowController != null)
         {
-            string lang;
-            try
+            string message = PlayerPrefs.GetString("username");
+            DataBaseHandler db = gameObject.GetComponent<DataBaseHandler>() == null
+                ? gameObject.AddComponent<DataBaseHandler>()
+                : gameObject.GetComponent<DataBaseHandler>();
+            if (prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 1" ||
+                prototypeFlowController.CurrentScreenInstance.name == "iPhone 13 & 14 - 5")
             {
-                lang = PlayerPrefs.GetString("lang");
+                // Data[] res = db.Select($"SELECT * FROM users WHERE name = '{message}'");
+                // _user = new User(res[0].Username, res[0].Balance, res[0].Lives, res[0].UID, res[0].Avatar);
             }
-            catch
-            {
-                lang = "ru";
-            }
-
-            // if (lang != "ru" && prototypeFlowController.CurrentScreenInstance.name != "iPhone 13 & 14 - 14")
-            // {
-            //     if (prototypeFlowController != null) prototypeFlowController.TransitionToScreenById("14");
-            // }
+            balance.text = _user.Balance.ToString();
+            lives.text = _user.Lives.ToString();
+            if (uid != null) uid.text = _user.ID.ToUpper();
+            if (usernameText != null) usernameText.text = _user.Username;
+            if (avatar != null) avatar.sprite = _user.Avatar;
         }
     }
 

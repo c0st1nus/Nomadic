@@ -19,6 +19,7 @@ Shader "Custom/BLUR" {
             GrabPass {                    
                 Tags { "LightMode" = "Always" }
             }
+            
             Pass {
                 Tags { "LightMode" = "Always" }
              

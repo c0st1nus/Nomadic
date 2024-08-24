@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: "\u0411\u0430\u043F\u0430\u0439"
   image: {fileID: 21300000, guid: c8d0760b6263a1c41be3e679a8e48dee, type: 3}
-  height: 2500
+  height: 175
